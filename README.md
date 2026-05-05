@@ -64,7 +64,9 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 
 **The Challenge:** The d20 Modern system uses abstract "Purchase DCs" rather than actual dollar amounts. The sheet needed to translate an abstract tier into a usable, average real-world currency value.
 
-**The Solution:** ```excel
+**The Solution:**
+
+```excel
 =IFNA(MROUND(VLOOKUP($A$2, $K$5:$N$84, 4, FALSE), 5), "")
 ```
 
@@ -76,7 +78,9 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 
 **The Challenge:** Handling "Gestalt" characters requires retrieving data for a combination of two distinct classes. Since neither class alone is a unique identifier for the combined stats, standard lookups fail.
 
-**The Solution:** ```excel
+**The Solution:**
+
+```excel
 =IFNA(VLOOKUP($B3 & "/" & $C3, Classes!$A$2:$J$180, 4, FALSE), "")
 ```
 
@@ -88,7 +92,9 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 
 **The Challenge:** Evaluating whether a character qualifies for an advanced path requires checking their entire history against a specific list of accepted prerequisites, while allowing for manual overrides.
 
-**The Solution:** ```excel
+**The Solution:**
+
+```excel
 =IFNA(
   IF(
     SUMPRODUCT(--(Character!$B$3:$B$22={"Smart ","Dedicated ","Charismatic ","Infiltrator ","Personality ","Explorer "})) > 0, 
