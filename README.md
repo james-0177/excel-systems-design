@@ -10,8 +10,8 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 ## Table of Contents
 1. [Data Integrity & State Management](#1-data-integrity--state-management-multiclassing-engine)
 2. [Dynamic Rules Engines](#2-dynamic-rules-engines-context-aware-attribution)
-3. [Financial Modeling & Tiered Scaling](#3-financial-modeling--tiered-scaling-wealth-dc)
-4. [Relational Data Architecture](#4-relational-data-architecture-composite-keys)
+3. [Bidirectional Financial Modeling & Data Binning](#3-bidirectional-financial-modeling--data-binning-wealth-dc)
+4. [Conditional Data Pipeline & ETL Transformation](#4-conditional-data-pipeline--etl-transformation-gestalt-engine)
 5. [Boolean Eligibility Logic](#5-boolean-eligibility-logic-array-processing)
 
 ---
