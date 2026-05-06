@@ -12,7 +12,7 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 2. [Dynamic Rules Engines](#2-dynamic-rules-engines-context-aware-attribution)
 3. [Bidirectional Financial Modeling & Data Binning](#3-bidirectional-financial-modeling--data-binning-wealth-dc)
 4. [End-to-End Data Pipeline & State-Dependent UI](#4-end-to-end-data-pipeline--state-dependent-ui-gestalt-engine)
-5. [Boolean Eligibility Logic](#5-boolean-eligibility-logic-array-processing)
+5. [Boolean Eligibility Logic](#5-boolean-eligibility-logic-entitlement-mapping)
 
 ---
 
@@ -90,24 +90,18 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 
 ---
 
-## 5. Boolean Eligibility Logic (Array Processing)
+## 5. Boolean Eligibility Logic (Entitlement Mapping)
 
-**The Challenge:** Evaluating whether a character qualifies for an advanced path requires checking their entire history against a specific list of accepted prerequisites, while allowing for manual overrides.
+**The Challenge:** Determining if a character unlocks a specific "Class Skill" requires cross-referencing their active classes against a strict, skill-specific list of prerequisites. Because every skill has a unique entitlement matrix (e.g., Appraise belongs strictly to Rogues, while Bluff is shared by both Rogues and Wizards), the system must evaluate shifting parameters on a row-by-row basis.
 
-**The Solution:** This logic uses array evaluation to cross-reference the character's history against a predefined list of qualifying classes, returning a clean binary output.
+**The Solution:** This logic utilizes array evaluation to check the character's currently selected classes against a predefined array of approved classes for that specific skill, returning a clean binary output. 
 
+*Example: "Bluff" Skill Eligibility Check*
 ```excel
-=IFNA(
-  IF(
-    SUMPRODUCT(--(Character!$B$3:$B$22={"Smart ","Dedicated ","Charismatic ","Infiltrator ","Personality ","Explorer "})) > 0, 
-    "Yes",
-    IF(AG31=B31, "Yes", "No")
-  ), 
-  "No"
-)
+=IFNA(IF(SUMPRODUCT(--('1_Data_Integrity'!$B$3:$B$14={"Rogue","Wizard"}))>0,"Yes","No"),"No")
 ```
 
-**Professional Translation:** This utilizes **Array Constants and Double Unaries (`--`)** for high-efficiency eligibility checking. Instead of chaining massive `OR` statements, the logic compares the dataset against a defined array, converting Boolean `TRUE/FALSE` responses into integers for mathematical evaluation. This is highly scalable logic often used in HR systems or authorization gates.
+**Professional Translation:** This demonstrates a hardcoded **Rules Engine** utilizing Array Constants and Double Unaries (--) for high-efficiency eligibility checking. In a corporate environment, this mirrors **Role-Based Access Control (RBAC)**. By comparing a user's active "roles" (e.g., Fighter, Wizard) against an array of approved roles for a specific "system" or asset (e.g., the Bluff skill), it securely converts Boolean `TRUE/FALSE` evaluations into a binary access gate, bypassing the need for massive, nested `OR` statements.
 
 ---
 
