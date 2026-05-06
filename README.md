@@ -72,18 +72,18 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 
 *Stage 1: State-Dependent Data Validation (Cascading Drop-Downs)*
 ```excel
-=INDIRECT(SUBSTITUTE($B3, " ", ""))
+=INDIRECT(SUBSTITUTE($B3,"",""))
 ```
 (This logic sits inside Data Validation, dynamically changing the Archetype drop-down list to strictly match the Class selected in $B3, preventing invalid database queries before they happen.)
 
 *Stage 2: Conditional Extraction (Database Routing & Virtual Arrays)*
 ```excel
-=IF(AND($B3="Investigator",$D3<>""), XLOOKUP($D3&"/"&$C3, $X$3:$X$32&"/"&$Y$3:$Y$32, $Z$3:$Z$32, ""), XLOOKUP($B3&"/"&$C3, $O$3:$O$27&"/"&$P$3:$P$27, $U$3:$U$27, ""))
+=IF(AND($B7="Investigator",$D7<>""),XLOOKUP($D7&"/"&$C7,$X$7:$X$36&"/"&$Y$7:$Y$36,$Z$7:$Z$36,""),XLOOKUP($B7&"/"&$C7,$O$7:$O$31&"/"&$P$7:$P$31,$U$7:$U$31,""))
 ```
 
 *Stage 3: Transformation & UI Presentation*
 ```excel
-=IF(AND($B3<>"",$E3<>""), CONCAT($AE3, " || ", $AF3), $AE3)
+=IFNA(IF(AND($B7<>"",$E7<>""),CONCAT($AD7," || ",$AE7),$AD7),"")
 ```
 
 **Professional Translation:** This demonstrates a complete, closed-loop **ETL Pipeline with Front-End Governance**. In a corporate environment, Stage 1 enforces data integrity at the source via dependent validation (cascading menus). Stage 2 mirrors extracting data from multiple tables based on system flags, utilizing in-memory array concatenation (`$O$3:$O$27&"/"&$P$3:$P$27`) to create dynamic composite keys without needing hardcoded helper columns. Finally, Stage 3 transforms the disparate text fields into a single, user-friendly string while gracefully handling nulls.
