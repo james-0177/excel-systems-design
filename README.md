@@ -72,9 +72,9 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 
 *Stage 1: State-Dependent Data Validation (Cascading Drop-Downs)*
 ```excel
-=INDIRECT(SUBSTITUTE($B3,"",""))
+=INDIRECT(SUBSTITUTE($B7,"",""))
 ```
-(This logic sits inside Data Validation, dynamically changing the Archetype drop-down list to strictly match the Class selected in $B3, preventing invalid database queries before they happen.)
+(This logic sits inside Data Validation, dynamically changing the Archetype drop-down list to strictly match the Class selected in $B7, preventing invalid database queries before they happen.)
 
 *Stage 2: Conditional Extraction (Database Routing & Virtual Arrays)*
 ```excel
@@ -86,7 +86,7 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 =IFNA(IF(AND($B7<>"",$E7<>""),CONCAT($AD7," || ",$AE7),$AD7),"")
 ```
 
-**Professional Translation:** This demonstrates a complete, closed-loop **ETL Pipeline with Front-End Governance**. In a corporate environment, Stage 1 enforces data integrity at the source via dependent validation (cascading menus). Stage 2 mirrors extracting data from multiple tables based on system flags, utilizing in-memory array concatenation (`$O$3:$O$27&"/"&$P$3:$P$27`) to create dynamic composite keys without needing hardcoded helper columns. Finally, Stage 3 transforms the disparate text fields into a single, user-friendly string while gracefully handling nulls.
+**Professional Translation:** This demonstrates a complete, closed-loop **ETL Pipeline with Front-End Governance**. In a corporate environment, Stage 1 enforces data integrity at the source via dependent validation (cascading menus). Stage 2 mirrors extracting data from multiple tables based on system flags, utilizing in-memory array concatenation (`$O$7:$O$31&"/"&$P$7:$P$31`) to create dynamic composite keys without needing hardcoded helper columns. Finally, Stage 3 transforms the disparate text fields into a single, user-friendly string while gracefully handling nulls.
 
 ---
 
