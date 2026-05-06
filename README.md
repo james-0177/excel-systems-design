@@ -52,7 +52,7 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 
 *Tier to Currency (Exact Match & Formatting):*
 ```excel
-=IFNA(MROUND(VLOOKUP($B$3,$K$15:$N$94,4,FALSE),5),"")
+=MROUND(XLOOKUP($B$3,$K$15:$K$94,$N$15:$N$94,""),5)
 ```
 
 *Currency to Tier (Range Match/Data Binning):*
