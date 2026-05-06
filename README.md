@@ -11,7 +11,7 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 1. [Data Integrity & State Management](#1-data-integrity--state-management-multiclassing-engine)
 2. [Dynamic Rules Engines](#2-dynamic-rules-engines-context-aware-attribution)
 3. [Bidirectional Financial Modeling & Data Binning](#3-bidirectional-financial-modeling--data-binning-wealth-dc)
-4. [Conditional Data Pipeline & ETL Transformation](#4-conditional-data-pipeline--etl-transformation-gestalt-engine)
+4. [End-to-End Data Pipeline & State-Dependent UI](#4-end-to-end-data-pipeline--state-dependent-ui-gestalt-engine)
 5. [Boolean Eligibility Logic](#5-boolean-eligibility-logic-array-processing)
 
 ---
@@ -64,23 +64,29 @@ While built for gaming, these sheets serve as robust case studies in **Data Arch
 
 ---
 
-## 4. Conditional Data Pipeline & ETL Transformation (Gestalt Engine)
+## 4. End-to-End Data Pipeline & State-Dependent UI (Gestalt Engine)
 
-**The Challenge:** In "Gestalt" systems, characters gain abilities from two separate classes simultaneously, including edge cases that require querying entirely different databases. The system needed to extract this disparate data and merge it into a single, clean UI element without trailing delimiters if a character only possessed one class.
+**The Challenge:** In "Gestalt" systems, characters gain abilities from two separate classes simultaneously, including edge cases that require querying entirely different databases (e.g., Investigators). The system needed to enforce valid data entry at the source, extract this disparate data without altering the raw database structure, and merge it into a single, clean UI element.
 
-**The Solution:** I built a two-stage ETL (Extract, Transform, Load) pipeline. The extraction layer uses conditional database routing and composite keys to pull raw text, while the presentation layer cleanly concatenates the arrays using Boolean logic to handle nulls.
+**The Solution:** I built a three-stage ETL pipeline that begins with dynamic user validation. The front-end restricts inputs based on state changes, the extraction layer builds virtual composite keys to route and query the databases, and the presentation layer cleans and concatenates the final arrays.
 
-*Stage 1: Conditional Extraction (Database Routing & Composite Keys)*
+*Stage 1: State-Dependent Data Validation (Cascading Drop-Downs)*
 ```excel
-=IFNA(IF(AND($B3="Investigator",$D3<>""), VLOOKUP($D3&"/"&$C3, Misc!$J$3:$M$122, 4, FALSE), VLOOKUP($B3&"/"&$C3, Classes!$A$2:$J$180, 9, FALSE)), "")
+=INDIRECT(SUBSTITUTE($B3, " ", ""))
+```
+(This logic sits inside Data Validation, dynamically changing the Archetype drop-down list to strictly match the Class selected in $B3, preventing invalid database queries before they happen.)
+
+*Stage 2: Conditional Extraction (Database Routing & Virtual Arrays)*
+```excel
+=IF(AND($B3="Investigator",$D3<>""), XLOOKUP($D3&"/"&$C3, $X$3:$X$32&"/"&$Y$3:$Y$32, $Z$3:$Z$32, ""), XLOOKUP($B3&"/"&$C3, $O$3:$O$27&"/"&$P$3:$P$27, $U$3:$U$27, ""))
 ```
 
-*Stage 2: Transformation & UI Presentation*
+*Stage 3: Transformation & UI Presentation*
 ```excel
-=IFNA(IF(AND($B3<>"",$E3<>""), CONCAT($AE3, " || ", $AF3), $AE3), "")
+=IF(AND($B3<>"",$E3<>""), CONCAT($AE3, " || ", $AF3), $AE3)
 ```
 
-**Professional Translation:** This demonstrates a complete ETL Data Pipeline. In a corporate environment, this mirrors extracting data from multiple database tables based on specific system flags (conditional routing), using composite keys for exact record matching, and finally transforming disparate text fields into a single, user-friendly string for a front-end dashboard while gracefully handling null values.
+**Professional Translation:** This demonstrates a complete, closed-loop **ETL Pipeline with Front-End Governance**. In a corporate environment, Stage 1 enforces data integrity at the source via dependent validation (cascading menus). Stage 2 mirrors extracting data from multiple tables based on system flags, utilizing in-memory array concatenation (`$O$3:$O$27&"/"&$P$3:$P$27`) to create dynamic composite keys without needing hardcoded helper columns. Finally, Stage 3 transforms the disparate text fields into a single, user-friendly string while gracefully handling nulls.
 
 ---
 
