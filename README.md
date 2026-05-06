@@ -5,7 +5,7 @@ This repository contains a collection of advanced spreadsheet architectures orig
 
 While built for gaming, these sheets serve as robust case studies in **Data Architecture, System Design, and Logic Engineering**. Building a functional TTRPG character sheet requires handling highly relational data, enforcing strict data integrity, and translating hundreds of pages of conditional "business rules" into scalable spreadsheet logic.
 
-*🔗 [Download / View the Showcase Spreadsheet Here](./demo/TTRPG_Logic_Showcase.xlsx)*
+**###🔗 [Download / View the Showcase Spreadsheet Here](./demo/TTRPG_Logic_Showcase.xlsx)###**
 ---
 
 ## Table of Contents
